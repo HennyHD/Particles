@@ -17,9 +17,6 @@ Engine::Engine()
 		Time restartTicme = clock.restart();
 		Time getTimeSec = clock.asSeconds();
 
-	//initialize a particle
-		Particle p(RenderTarget& target, int numPoints, Vector2i mouseClickPosition);
-
 	//tester
 		cout << "Starting Particle unit tests..." << endl;
 		Particle p(m_Window, 4, { (int)m_Window.getSize().x / 2, (int)m_Window.getSize().y / 2 });
