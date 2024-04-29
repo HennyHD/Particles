@@ -65,7 +65,7 @@ Engine::Engine()
 						
 						int numPoints = rand() % (50 - 25 + 1) + 25;
 						Vector2i mouseClickPosition = Vector2i(event.mouseButton.x, event.mouseButton.y);
-						m_particles.push_back(RenderTarget& target, int numPoints, Vector2i mouseClickPosition);
+						m_particles.push_back(RenderTarget& target, numPoints, Vector2i mouseClickPosition);
 					}
 				}
 			}
@@ -74,11 +74,10 @@ Engine::Engine()
 		Engine::update(float dtAsSeconds)
 		{
 			vector<Particle>::iterator iter = m_particles.begin();
-			int i = 0;
 			if (m_particles.at(i).getTTL() > 0.0) 
 			{
 				m_particles.at(i).update(float dt);
-				++i;
+				++iter;
 			}
 			else 
 			{
