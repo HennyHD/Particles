@@ -10,6 +10,7 @@ void Particle::unitTests()
 {
     int score = 0;
 
+
     cout << "Testing RotationMatrix constructor...";
     double theta = M_PI / 4.0;
     RotationMatrix r(M_PI / 4);
@@ -19,9 +20,9 @@ void Particle::unitTests()
         && almostEqual(r(1, 1), cos(theta)))
     {
         cout << "Passed.  +1" << endl;
-        score++;
+        score++;            
     }
-    else
+    else            
     {
         cout << "Failed." << endl;
     }
@@ -76,7 +77,7 @@ void Particle::unitTests()
     cout << "Applying one rotation of 90 degrees about the origin..." << endl;
     Matrix initialCoords = m_A;
     rotate(M_PI / 2.0);
-    bool rotationPassed = true;
+    bool rotationPassed = trse;
     for (int j = 0; j < initialCoords.getCols(); j++)
     {
         if (!almostEqual(m_A(0, j), -initialCoords(1, j)) || !almostEqual(m_A(1, j), initialCoords(0, j)))
@@ -143,4 +144,5 @@ void Particle::unitTests()
     }
 
     cout << "Score: " << score << " / 7" << endl;
+    
 }
