@@ -8,7 +8,7 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
     m_radiansPerSec = ((float)rand()/(RAND_MAX))*M_PI;
     m_cartesianPlane.setCenter(0,0);
     m_cartesianPlane.setSize(target.getSize().x, (-1.0) * target.getSize().y); //invert y axis
-    m_centerCoordinate.mapPixelToCoords(mouseClickPosition, m_cartesianPlane.getView());  //FIXME check if correct
+    m_centerCoordinate.mapPixelToCoords(mouseClickPosition, m_cartesianPlane);  //FIXME check if correct
     m_vy = rand() % (500-100 + 1) + 100;
     m_color1.r = 255; //color 1 = white
     m_color1.b = 255;
