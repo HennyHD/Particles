@@ -8,7 +8,7 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
     m_radiansPerSec = ((float)rand()/(RAND_MAX))*M_PI;
     m_cartesianPlane.setCenter(0,0);
     m_cartesianPlane.setSize(target.getSize().x, (-1.0) * target.getSize().y); //invert y axis
-    m_centerCoordinate.mapPixelToCoords(mouseClickPosition, m_cartesianPlane);  //FIXME check if correct
+    m_centerCoordinate = target.mapPixelToCoords(mouseClickPosition, m_cartesianPlane);  //FIXME check if correct
     m_vy = rand() % (500-100 + 1) + 100;
     m_color1.r = 255; //color 1 = white
     m_color1.b = 255;
@@ -23,12 +23,12 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
 virtual void Particle::draw(RenderTarget& target, RenderStates states) const override
 {
     VertexArray lines(TriangleFan, numPoints+1);
-    Vector2f center = m_centerCoordinate.mapCoordsToPixel(mouseClickPosition, m_cartesianPlane);  //FIXME?
+    Vector2f center = target.mapCoordsToPixel(m_centerCoordinate, m_cartesianPlane);  //FIXME?
     lines[0].position = center;
     lines[0].color = m_color;  //FIXME: m_color may not exist, perhaps it's m_color1
     for (size_t j = 1; j <= m_numPoints)
     {
-        lines[j].position = m_Window.mapCoordsToPixel(m_A(j-1, column),m_cartesianPlane.getView()); //FIXME
+        lines[j].position = target.mapCoordsToPixel({m_A(0, j-1), m_A(1, j-1)}, m_cartesianPlane); //FIXME
         lines[j].color = m_color2;
     }
     m_Window.draw(lines); //FIXME target.draw(lines).  is target supposed to be literal?
