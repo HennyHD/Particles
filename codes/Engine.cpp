@@ -9,7 +9,7 @@ Engine::Engine()
 		"Particles!",
 		Style::Default);
 
-	run()
+	Engine::run()
 	{
 	//Timer
 		Clock clock;
@@ -85,9 +85,15 @@ Engine::Engine()
 
 
 	//Draw the scene
-
-
-
+		Engine::Draw()
+		{
+			m_Window.clear();
+			for(const Particle& particle : m_particles)
+			{
+				m_Window.draw(particle);
+			}
+			m_Window.display();
+		}
 
 	}
 		

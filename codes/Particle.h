@@ -31,7 +31,7 @@ private:
     View m_cartesianPlane;
     Color m_color1;
     Color m_color2;
-    Matrix m_A;
+    Matrix m_A(2, numPoints);  //fixme
 
     ///rotate Particle by theta radians counter-clockwise
     ///construct a RotationMatrix R, left mulitply it to m_A

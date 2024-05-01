@@ -1,4 +1,78 @@
 #include "Particle.h"
+//FIXME
+Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition)
+{
+    m_A = mouseClickPosition;  //FIXME check if correct
+    m_ttl = const TTL;
+    m_numPoints = numPoints;
+    m_radiansPerSec = ((float)rand()/(RAND_MAX))*M_PI;
+    m_cartesianPlane.setCenter(0,0);
+    m_cartesianPlane.setSize(target.getSize().x, (-1.0) * target.getSize().y); //invert y axis
+    m_centerCoordinate.mapPixelToCoords(mouseClickPosition, m_cartesianPlane.getView());  //FIXME check if correct
+    m_vy = rand() % (500-100 + 1) + 100;
+    m_color1.r = 255; //color 1 = white
+    m_color1.b = 255;
+    m_color1.g = 255;
+    m_color2.r = rand() % 256;
+    m_color2.b = rand() % 256;
+    m_color2.g = rand() % 256;  //maybe make a selection of distinct colors for fireworks: yellow, purp, blue, red, green
+    //create Algorithm for numpoint generation
+}
+
+//FIXME
+virtual void Particle::draw(RenderTarget& target, RenderStates states) const override
+{
+    VertexArray lines(TriangleFan, numPoints+1);
+    Vector2f center = m_centerCoordinate.mapCoordsToPixel(mouseClickPosition, m_cartesianPlane.getView());  //FIXME?
+    lines[0].position = center;
+    lines[0].color = m_color;  //FIXME: m_color may not exist, perhaps it's m_color1
+    for (size_t j = 1; j <= m_numPoints)
+    {
+        lines[j].position = m_Window.mapCoordsToPixel(m_A(j-1, column),m_cartesianPlane.getView()); //FIXME
+        lines[j].color = m_color2;
+    }
+    m_Window.draw(lines); //FIXME target.draw(lines).  is target supposed to be literal?
+}
+
+//FIXME
+void Particle::update(float dt)
+{
+    m_ttl = m_tll - dt;
+    rotate(dt*m_radiansPerSec);
+    scale(SCALE);
+    float dx;
+    float dy;
+    dx = m_vx * dt;
+    m_vy = m_vy - (G*dt); //FIXME  not entirely sure this is right
+    dy = m_vy * dt;
+    translate(dx, dy);
+}
+
+void Particle::translate(double xShift, double yShift)
+{
+    TranslationMatrix t(xShift, yShift);
+    m_A = T + m_A;
+    m_centerCoordinate.x += xShift;
+    m_centerCoordinate.y += yShift;
+}
+
+void Particle::rotate(double theta)
+{
+    Vector2f temp = m_centerCoordinate;
+    translate(-m_centerCoordinate.x, -m_centerCoordinate.y);
+    RotationMatrix R(theta);
+    m_A = R * m_A;  //FIXME  left multiply R? so just on the left?
+    translate(temp.x, temp.y);
+}
+
+void Particle::scale(double c)
+{
+    Vector2f temp = m_centerCoordinate;
+    translate(-m_centerCoordinate.x, -m_centerCoordinate.y);
+    ScalingMatrix S(c);
+    m_A = S * m_A;
+    translate(temp.x, temp.y);
+}
 
 
 bool Particle::almostEqual(double a, double b, double eps)
