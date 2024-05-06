@@ -124,10 +124,8 @@ namespace Matrices
     {
         for (int j = 0; j < nCols; ++j)
         {
-                this.at  this->
-                if (j == 0) {A_matrix.at(i, j) = xShift;} 
-                else if (j == 1) {A_matrix.at(i,j) = yShift;}
-            }
+                a.at(0).at(j) = xShift;
+                a.at(1).at(j) = yShift;
         }
     }
 
