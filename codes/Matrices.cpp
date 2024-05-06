@@ -122,10 +122,9 @@ namespace Matrices
 
     TranslationMatrix::TranslationMatrix(double xShift, double yShift, int nCols) : A_matrix(2,nCols)
     {
-        for (int i = 0; i < nCols; ++i)
+        for (int j = 0; j < nCols; ++j)
         {
-            for (int j = 0; j < 2 ++j)
-            {
+                this.at  this->
                 if (j == 0) {A_matrix.at(i, j) = xShift;} 
                 else if (j == 1) {A_matrix.at(i,j) = yShift;}
             }
