@@ -106,15 +106,15 @@ namespace Matrices
     ///usage:  A = R * A rotates A theta radians counter-clockwise
     RotationalMatrix::RotationMatrix(double theta) : Matrix(2, 2)
     {
-        A_matrix.at(0,0) = cos(theta);
-        A_matrix.at(0,1) = -sin(theta);
+        this->a.at(0).at(0) = cos(theta);
+        this->(0,1) = -sin(theta);
         A_matrix.at(1,0) = sin(theta);
         A_matrix.at(1,1) = cos(theta);
     }
 
     ScalingMatrix::ScalingMatrix(double scale) : Matrix(2,2)
     {
-        A_matrix.at(0,0) = scale;
+        (*this).a.at(0).at(0) = scale;
         A_matrix.at(0,1) = 0;
         A_matrix.at(1,0) = 0;
         A_matrix.at(1,1) = scale;
