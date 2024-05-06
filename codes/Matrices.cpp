@@ -104,7 +104,7 @@ namespace Matrices
 
     ///2D rotation matrix
     ///usage:  A = R * A rotates A theta radians counter-clockwise
-    RotationalMatrix::RotationMatrix(double theta) : A_matrix(2, 2)
+    RotationalMatrix::RotationMatrix(double theta) : Matrix(2, 2)
     {
         A_matrix.at(0,0) = cos(theta);
         A_matrix.at(0,1) = -sin(theta);
@@ -112,7 +112,7 @@ namespace Matrices
         A_matrix.at(1,1) = cos(theta);
     }
 
-    ScalingMatrix::ScalingMatrix(double scale) : A_matrix(2,2)
+    ScalingMatrix::ScalingMatrix(double scale) : Matrix(2,2)
     {
         A_matrix.at(0,0) = scale;
         A_matrix.at(0,1) = 0;
@@ -120,7 +120,7 @@ namespace Matrices
         A_matrix.at(1,1) = scale;
     }
 
-    TranslationMatrix::TranslationMatrix(double xShift, double yShift, int nCols) : A_matrix(2,nCols)
+    TranslationMatrix::TranslationMatrix(double xShift, double yShift, int nCols) : Matrix(2,nCols)
     {
         for (int j = 0; j < nCols; ++j)
         {
