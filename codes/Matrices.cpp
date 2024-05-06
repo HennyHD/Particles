@@ -107,7 +107,7 @@ namespace Matrices
     RotationalMatrix::RotationMatrix(double theta) : Matrix(2, 2)
     {
         this->a.at(0).at(0) = cos(theta);
-        this->(0,1) = -sin(theta);
+        (*this)(0,1) = -sin(theta);
         A_matrix.at(1,0) = sin(theta);
         A_matrix.at(1,1) = cos(theta);
     }
