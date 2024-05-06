@@ -1,6 +1,6 @@
 #include "Particle.h"
 //FIXME
-Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition)
+Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition) : m_A(2, numPoints)
 {
     m_A = mouseClickPosition;  //FIXME check if correct
     m_ttl = const TTL;

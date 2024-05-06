@@ -1,21 +1,18 @@
 #include "Engine.h"
 Engine::Engine()
 {
-	Vector2f resolution;
-	resolution.x = VideoMode::getDesktopMode().width;
-	resolution.y = VideoMode::getDesktopMode().height;
-	
-	m_Window.create(VideoMode(resolution.x, resolution.y),
-		"Particles!",
-		Style::Default);
+	int pixelWidth = VideoMode::getDesktopMode().width;  	//Get desktop resolution
+	int pixelHeight = VideoMode::getDesktopMode().height;
+	VideoMode vm(pixelWidth, pixelHeight);
+	RenderWindow m_Window(vm, "PARTICLES", Style::Default);
 
-	Engine::run()
+	Engine::run();
 	{
 	//Timer
 		Clock clock;
 		Time getTime = clock.getElapsedTime();
-		Time restartTicme = clock.restart();
-		Time getTimeSec = clock.asSeconds();
+		Time restartTime = clock.restart();
+		float getSec = getTime.asSeconds();
 
 	//tester
 		cout << "Starting Particle unit tests..." << endl;
@@ -24,25 +21,25 @@ Engine::Engine()
 		cout << "Unit tests complete.  Starting engine..." << endl;
 
 	//open window
-		while (m_Window.isopen)
+		while (m_Window.isOpen())
 		{
 			//Extra things to do before we poll
 			//Clock initialize
 			restartTime;
-			getTimeSec;
+			cout << getSec << endl;
 			void input();
 			void update(float dtAsSeconds);
 			void draw();
 		}
 
 	//Player Inputs
-		Engine::input()
+		Engine::input();
 		{
 			Event event;
-			while (window.pollEvent(event))
+			while (m_Window.pollEvent(event))
 			{
 				if (event.type == sf::Event::Closed)  //if event is closed, then execute close command.
-					{ window.close(); }
+					{m_Window.close(); }
 				
 				if (Keyboard::isKeyPressed(Keyboard::Escape))
 				{
@@ -62,7 +59,7 @@ Engine::Engine()
 						
 						int numPoints = rand() % (50 - 25 + 1) + 25;
 						Vector2i mouseClickPosition = Vector2i(event.mouseButton.x, event.mouseButton.y);
-						m_particles.push_back( m_Window, numPoints, mouseClickPosition);
+						m_particles.push_back(m_Window, numPoints, mouseClickPosition);
 					}
 				}
 			}

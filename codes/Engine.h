@@ -1,6 +1,8 @@
 #pragma once
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/System/Clock.hpp>
+#include <SFML/System/Time.hpp>
 #include "Particle.h"
 #include <algorithm>
 using namespace sf;
