@@ -108,16 +108,16 @@ namespace Matrices
     {
         this->a.at(0).at(0) = cos(theta);
         (*this)(0,1) = -sin(theta);
-        A_matrix.at(1,0) = sin(theta);
-        A_matrix.at(1,1) = cos(theta);
+        (*this)(1,0) = sin(theta);
+        (*this)(1,1) = cos(theta);
     }
 
     ScalingMatrix::ScalingMatrix(double scale) : Matrix(2,2)
     {
         (*this).a.at(0).at(0) = scale;
-        A_matrix.at(0,1) = 0;
-        A_matrix.at(1,0) = 0;
-        A_matrix.at(1,1) = scale;
+        (*this)(0,1) = 0;
+        (*this)(1,0) = 0;
+        (*this)(1,1) = scale;
     }
 
     TranslationMatrix::TranslationMatrix(double xShift, double yShift, int nCols) : Matrix(2,nCols)
