@@ -13,7 +13,7 @@ class Particle : public Drawable
 {
 public:
 	Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition);
-	virtual void draw(RenderTarget& target, RenderStates states) const override;
+	void draw(RenderTarget& target, RenderStates states) const override;
     void update(float dt);
     float getTTL() { return m_ttl; }
 
@@ -31,7 +31,7 @@ private:
     View m_cartesianPlane;
     Color m_color1;
     Color m_color2;
-    Matrix m_A(int a, int b);  //fixme
+    Matrix m_A;  //fixme
 
     ///rotate Particle by theta radians counter-clockwise
     ///construct a RotationMatrix R, left mulitply it to m_A

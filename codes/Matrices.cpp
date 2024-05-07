@@ -104,7 +104,7 @@ namespace Matrices
 
     ///2D rotation matrix
     ///usage:  A = R * A rotates A theta radians counter-clockwise
-    RotationalMatrix::RotationMatrix(double theta) : Matrix(2, 2)
+    RotationMatrix::RotationMatrix(double theta) : Matrix(2, 2)
     {
         this->a.at(0).at(0) = cos(theta);
         (*this)(0,1) = -sin(theta);

@@ -5,14 +5,15 @@ Engine::Engine()
 	int pixelHeight = VideoMode::getDesktopMode().height;
 	VideoMode vm(pixelWidth, pixelHeight);
 	RenderWindow m_Window(vm, "PARTICLES", Style::Default);
+}
 
-	Engine::run();
+	void Engine::run()
 	{
 	//Timer
 		Clock clock;
-		Time getTime = clock.getElapsedTime();
+		Time dt = clock.getElapsedTime();
 		Time restartTime = clock.restart();
-		float getSec = getTime.asSeconds();
+		float dtAsSeconds = dt.asSeconds();
 
 	//tester
 		cout << "Starting Particle unit tests..." << endl;
@@ -26,14 +27,15 @@ Engine::Engine()
 			//Extra things to do before we poll
 			//Clock initialize
 			restartTime;
-			cout << getSec << endl;
+			cout << dtAsSeconds << "Seconds" << endl;
 			void input();
 			void update(float dtAsSeconds);
 			void draw();
 		}
+	}
 
 	//Player Inputs
-		Engine::input();
+		void Engine::input()
 		{
 			Event event;
 			while (m_Window.pollEvent(event))
@@ -59,30 +61,30 @@ Engine::Engine()
 						
 						int numPoints = rand() % (50 - 25 + 1) + 25;
 						Vector2i mouseClickPosition = Vector2i(event.mouseButton.x, event.mouseButton.y);
-						m_particles.push_back(m_Window, numPoints, mouseClickPosition);
+						m_particles.push_back(Particle(m_Window, numPoints, mouseClickPosition));
 					}
 				}
 			}
 		}
 	//Update the scene
-		Engine::update(float dtAsSeconds)
+		void Engine::update(float dtAsSeconds)
 		{
 			vector<Particle>::iterator iter = m_particles.begin();
-			if (m_particles.at(i).getTTL() > 0.0) 
+			if (iter->getTTL() > 0.0) 
 			{
-				m_particles.at(i).update(float dt);
+				iter->update(dtAsSeconds);
 				++iter;
 			}
 			else 
 			{
-				iter = iter.erase(iter)
+				iter = m_particles.erase(iter);
 				cout << "iter has erased a value" << endl;
 			}
 		}
 
 
 	//Draw the scene
-		Engine::Draw()
+		void Engine::draw()
 		{
 			m_Window.clear();
 			for(const Particle& particle : m_particles)
@@ -92,6 +94,4 @@ Engine::Engine()
 			m_Window.display();
 		}
 
-	}
 		
-}
