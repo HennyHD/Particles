@@ -1,11 +1,11 @@
 #include "Engine.h"
-Engine::Engine()
-{
+Engine::Engine() : m_Window(VideoMode(1920, 1080), "PARTICLES", Style::Default)
+/*  doesn't work
 	int pixelWidth = VideoMode::getDesktopMode().width;  	//Get desktop resolution
 	int pixelHeight = VideoMode::getDesktopMode().height;
 	VideoMode vm(pixelWidth, pixelHeight);
 	RenderWindow m_Window(vm, "PARTICLES", Style::Default);
-}
+*/
 
 	void Engine::run()
 	{
@@ -28,9 +28,9 @@ Engine::Engine()
 			//Clock initialize
 			restartTime;
 			cout << dtAsSeconds << "Seconds" << endl;
-			void input();
-			void update(dtAsSeconds);
-			void draw();
+			input();
+			update(dtAsSeconds);
+			draw();
 		}
 	}
 
