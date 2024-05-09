@@ -29,7 +29,7 @@ Engine::Engine()
 			restartTime;
 			cout << dtAsSeconds << "Seconds" << endl;
 			void input();
-			void update(float dtAsSeconds);
+			void update(dtAsSeconds);
 			void draw();
 		}
 	}
@@ -61,7 +61,8 @@ Engine::Engine()
 						
 						int numPoints = rand() % (50 - 25 + 1) + 25;
 						Vector2i mouseClickPosition = Vector2i(event.mouseButton.x, event.mouseButton.y);
-						m_particles.push_back(Particle(m_Window, numPoints, mouseClickPosition));
+						Particle pDisplay(m_Window, numPoints, mouseClickPosition)
+						m_particles.push_back(pDisplay);
 					}
 				}
 			}
