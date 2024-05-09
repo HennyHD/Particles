@@ -98,7 +98,7 @@ namespace Matrices
             }
             os << '\n';
         }
-        os << '\n' << '\n' << '\n' << '\n';
+        os << '\n' << '\n' << '\n' << '\n';  //fixme?
         return os;
     }
 
