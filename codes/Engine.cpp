@@ -1,5 +1,5 @@
 #include "Engine.h"
-Engine::Engine() : m_Window(VideoMode(1920, 1080), "PARTICLES", Style::Default)
+Engine::Engine() : m_Window(VideoMode(1920, 1080), "PARTICLES", Style::Default) {}
 /*  doesn't work
 	int pixelWidth = VideoMode::getDesktopMode().width;  	//Get desktop resolution
 	int pixelHeight = VideoMode::getDesktopMode().height;
@@ -61,7 +61,7 @@ Engine::Engine() : m_Window(VideoMode(1920, 1080), "PARTICLES", Style::Default)
 						
 						int numPoints = rand() % (50 - 25 + 1) + 25;
 						Vector2i mouseClickPosition = Vector2i(event.mouseButton.x, event.mouseButton.y);
-						Particle pDisplay(m_Window, numPoints, mouseClickPosition)
+						Particle pDisplay(m_Window, numPoints, mouseClickPosition);
 						m_particles.push_back(pDisplay);
 					}
 				}
