@@ -62,7 +62,7 @@ void Particle::update(float dt)
 
 void Particle::translate(double xShift, double yShift)
 {
-    TranslationMatrix T(xShift, yShift m_A.getCols()); //FIXME?  getcols
+    TranslationMatrix T(xShift, yShift, m_A.getCols()); //FIXME?  getcols
     m_A = T + m_A;
     m_centerCoordinate.x += xShift;
     m_centerCoordinate.y += yShift;
