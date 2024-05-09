@@ -10,9 +10,7 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
     m_centerCoordinate = target.mapPixelToCoords(mouseClickPosition, m_cartesianPlane);  //FIXME check if correct
     m_vy = rand() % (500-100 + 1) + 100;
     m_vx = rand() % (500-100 + 1) + 100;
-    m_color1.r = 255; //color 1 = white
-    m_color1.b = 255;
-    m_color1.g = 255;
+    m_color1 = Color::White;
     m_color2.r = rand() % 256;
     m_color2.b = rand() % 256;
     m_color2.g = rand() % 256;  //maybe make a selection of distinct colors for fireworks: yellow, purp, blue, red, green
@@ -20,7 +18,7 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
     //create Algorithm for numpoint generation
     float theta = ((float)rand() / RAND_MAX) * (M_PI / 2);
     float dTheta = 2 * M_PI/(numPoints - 1);
-    for (int j = 0; j<numPoints; ++j)
+    for (int j = 0; j < numPoints; ++j)
     {
         float r = rand() % (80-20 + 1) + 20;
         float dx = r * cos(theta);
@@ -35,12 +33,14 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
 void Particle::draw(RenderTarget& target, RenderStates states) const
 {
     VertexArray lines(TriangleFan, m_numPoints+1);
-    Vector2f center = target.mapCoordsToPixel(m_centerCoordinate, m_cartesianPlane);  //FIXME?
+    Vector2f center;  
+    center = (Vector2f)(target.mapCoordsToPixel(m_centerCoordinate, m_cartesianPlane));  //FIXME?
     lines[0].position = center;
     lines[0].color = m_color1; 
-    for (size_t j = 1; j <= m_numPoints; ++j)
+    
+	for (size_t j = 1; j <= m_numPoints; ++j)
     {
-        lines[j].position = target.mapCoordsToPixel({m_A(0, j-1), m_A(1, j-1)}, m_cartesianPlane); //FIXME
+        lines[j].position = (Vector2f)(target.mapCoordsToPixel(Vector2f{m_A(0, j-1), m_A(1, j-1)}, m_cartesianPlane)); //FIXME
         lines[j].color = m_color2;
     }
     target.draw(lines); 
@@ -49,20 +49,20 @@ void Particle::draw(RenderTarget& target, RenderStates states) const
 //FIXME
 void Particle::update(float dt)
 {
-    m_ttl -= dt;
+	float dx;
+    	float dy;
+	m_ttl -= dt;
     rotate(dt*m_radiansPerSec);
     scale(SCALE);
-    float dx;
-    float dy;
     dx = m_vx * dt;
-    m_vy = m_vy - (G*dt); //FIXME  not entirely sure this is right
+    m_vy -= (G*dt); //FIXME  not entirely sure this is right
     dy = m_vy * dt;
     translate(dx, dy);
 }
 
 void Particle::translate(double xShift, double yShift)
 {
-    TranslationMatrix T(xShift, yShift);
+    TranslationMatrix T(xShift, yShift m_A.getCols()); //FIXME?  getcols
     m_A = T + m_A;
     m_centerCoordinate.x += xShift;
     m_centerCoordinate.y += yShift;
@@ -73,7 +73,7 @@ void Particle::rotate(double theta)
     Vector2f temp = m_centerCoordinate;
     translate(-m_centerCoordinate.x, -m_centerCoordinate.y);
     RotationMatrix R(theta);
-    m_A = R * m_A;  //FIXME? left multiply R? so just on the left?
+    m_A = R * m_A;  
     translate(temp.x, temp.y);
 }
 
