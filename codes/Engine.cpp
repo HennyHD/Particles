@@ -4,7 +4,7 @@ Engine::Engine() : m_Window(VideoMode(1920, 1080), "PARTICLES", Style::Default) 
 	int pixelWidth = VideoMode::getDesktopMode().width;  	//Get desktop resolution
 	int pixelHeight = VideoMode::getDesktopMode().height;
 	VideoMode vm(pixelWidth, pixelHeight);
-	RenderWindow m_Window(vm, "PARTICLES", Style::Default);
+	m_Window(vm, "PARTICLES", Style::Default);
 */
 
 	void Engine::run()
