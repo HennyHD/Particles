@@ -2,13 +2,14 @@
 Engine::Engine() : m_Window(VideoMode(1920, 1080), "PARTICLES", Style::Default)
 {
 
-	if (!backgroundTexture.loadFromFile("background.png"))
+	/*if (!backgroundTexture.loadFromFile("background.png"))
     {
         cout << "Error loading background image!" << endl;
     }
 	else {
 		backgroundSprite.setTexture(backgroundTexture);
 	}
+	*/
 
 }
 
@@ -93,7 +94,7 @@ Engine::Engine() : m_Window(VideoMode(1920, 1080), "PARTICLES", Style::Default)
 		{
 			m_Window.clear();
 			m_Window.draw(backgroundSprite);
-			
+
 			for(const Particle& particle : m_particles)
 			{
 				m_Window.draw(particle);

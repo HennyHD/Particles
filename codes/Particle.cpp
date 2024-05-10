@@ -8,7 +8,7 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
     m_cartesianPlane.setCenter(0,0);
     m_cartesianPlane.setSize(target.getSize().x, (-1.0) * target.getSize().y); //invert y axis
     m_centerCoordinate = target.mapPixelToCoords(mouseClickPosition, m_cartesianPlane);  //FIXME check if correct
-    m_vy = rand() % (500-100 + 1) + 100;  //move x and y on initial velocity
+    m_vy = rand() % (1000-100 + 1) + 100;  //move x and y on initial velocity
     m_vx = rand() % (500-100 + 1) + 100;
     int x_Axis = rand() % 2;  //x needs support to go in the neg axis
     if (x_Axis == 0) {m_vx = m_vx * -1;} 
