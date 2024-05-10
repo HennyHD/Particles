@@ -4,12 +4,15 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
 {
     m_ttl = TTL;
     m_numPoints = numPoints;
-    m_radiansPerSec = ((float)rand()/(RAND_MAX))*M_PI;
+    m_radiansPerSec = ((float)rand() / (RAND_MAX)) * M_PI;
     m_cartesianPlane.setCenter(0,0);
     m_cartesianPlane.setSize(target.getSize().x, (-1.0) * target.getSize().y); //invert y axis
     m_centerCoordinate = target.mapPixelToCoords(mouseClickPosition, m_cartesianPlane);  //FIXME check if correct
-    m_vy = rand() % (500-100 + 1) + 100;
+    m_vy = rand() % (500-100 + 1) + 100;  //move x and y on initial velocity
     m_vx = rand() % (500-100 + 1) + 100;
+    int x_Axis = rand() % 2;  //x needs support to go in the neg axis
+    if (x_Axis == 0) {m_vx = m_vx * -1;} 
+
     m_color1 = Color::White;
     m_color2.r = rand() % 256;
     m_color2.b = rand() % 256;
@@ -18,7 +21,7 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
     //create Algorithm for numpoint generation
     float theta = ((float)rand() / RAND_MAX) * (M_PI / 2);
     float dTheta = 2 * M_PI/(numPoints - 1);
-    for (int j = 0; j < numPoints; ++j)
+    for (int j = 0; j < numPoints; j++)
     {
         float r = rand() % (80-20 + 1) + 20;
         float dx = r * cos(theta);
@@ -50,12 +53,12 @@ void Particle::draw(RenderTarget& target, RenderStates states) const
 void Particle::update(float dt)
 {
 	float dx;
-    	float dy;
+    float dy;
 	m_ttl -= dt;
-    rotate(dt*m_radiansPerSec);
+    rotate(dt * m_radiansPerSec);
     scale(SCALE);
     dx = m_vx * dt;
-    m_vy -= (G*dt); //FIXME  not entirely sure this is right
+    m_vy -= (G * dt);
     dy = m_vy * dt;
     translate(dx, dy);
 }

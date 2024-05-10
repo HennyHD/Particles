@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Time.hpp>
@@ -21,6 +20,10 @@ private:
 	void input();
 	void update(float dtAsSeconds);
 	void draw();
+
+	// Background sprite
+	Texture backgroundTexture;
+	Sprite backgroundSprite;
 
 public:
 	// The Engine constructor

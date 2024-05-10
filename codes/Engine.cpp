@@ -1,19 +1,22 @@
 #include "Engine.h"
-Engine::Engine() : m_Window(VideoMode(1920, 1080), "PARTICLES", Style::Default) {}
-/*  doesn't work
-	int pixelWidth = VideoMode::getDesktopMode().width;  	//Get desktop resolution
-	int pixelHeight = VideoMode::getDesktopMode().height;
-	VideoMode vm(pixelWidth, pixelHeight);
-	m_Window(vm, "PARTICLES", Style::Default);
-*/
+Engine::Engine() : m_Window(VideoMode(1920, 1080), "PARTICLES", Style::Default)
+{
+
+	if (!backgroundTexture.loadFromFile("background.png"))
+    {
+        cout << "Error loading background image!" << endl;
+    }
+	else {
+		backgroundSprite.setTexture(backgroundTexture);
+	}
+
+}
 
 	void Engine::run()
 	{
 	//Timer
+	
 		Clock clock;
-		Time dt = clock.getElapsedTime();
-		Time restartTime = clock.restart();
-		float dtAsSeconds = dt.asSeconds();
 
 	//tester
 		cout << "Starting Particle unit tests..." << endl;
@@ -26,8 +29,8 @@ Engine::Engine() : m_Window(VideoMode(1920, 1080), "PARTICLES", Style::Default) 
 		{
 			//Extra things to do before we poll
 			//Clock initialize
-			restartTime;
-			cout << dtAsSeconds << "Seconds" << endl;
+			Time dt = clock.restart();
+			float dtAsSeconds = dt.asSeconds();
 			input();
 			update(dtAsSeconds);
 			draw();
@@ -70,17 +73,18 @@ Engine::Engine() : m_Window(VideoMode(1920, 1080), "PARTICLES", Style::Default) 
 	//Update the scene
 		void Engine::update(float dtAsSeconds)
 		{
-			vector<Particle>::iterator iter = m_particles.begin();
-			if (iter->getTTL() > 0.0) 
-			{
-				iter->update(dtAsSeconds);
-				++iter;
-			}
-			else 
-			{
-				iter = m_particles.erase(iter);
-				cout << "iter has erased a value" << endl;
-			}
+				   for (auto i = m_particles.begin(); i != m_particles.end();)
+		   {
+			   if (i->getTTL() > 0.0) // TTL expired check
+			   {
+				   i->update(dtAsSeconds); // calling the update here per the instructions!
+				   i++;
+			   }
+			   else
+			   {
+				   i = m_particles.erase(i); // If expired then we erase it from the vector here!
+			   }
+		   }
 		}
 
 
@@ -88,6 +92,8 @@ Engine::Engine() : m_Window(VideoMode(1920, 1080), "PARTICLES", Style::Default) 
 		void Engine::draw()
 		{
 			m_Window.clear();
+			m_Window.draw(backgroundSprite);
+			
 			for(const Particle& particle : m_particles)
 			{
 				m_Window.draw(particle);
